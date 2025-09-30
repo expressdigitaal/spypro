@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+  
+
+<script>
+  window.pixelId = "68d9a91ca3323481fa10ab17";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+
+  
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Quiz — Sinais no Relacionamento </title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --content-max: 640px; --card-max: 520px; --img-min: 160px; --img-max: 220px;
+    --bg:#ffffff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
+    --accent1:#22c55e; --accent2:#0ea5e9; --shadow:0 10px 24px rgba(0,0,0,.06); --radius:14px;
+    --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444;
+    --brand:#0b1325;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif}
+  .wrap{max-width:var(--content-max);margin:22px auto;padding:0 14px}
+
+  .brand{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:#111;color:#fff;font-weight:900;box-shadow:var(--shadow);font-size:14px}
+  .progress{width:100%;height:6px;border-radius:999px;background:#f3f4f6;margin:12px 0 10px;overflow:hidden;border:1px solid var(--line)}
+  .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent1),var(--accent2));transition:width .25s ease}
+
+  .callout{display:flex;align-items:center;gap:8px;justify-content:center;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;
+           font-weight:700;border-radius:10px;padding:8px 10px;margin:6px auto 12px;width:fit-content;max-width:100%}
+  .stage{display:grid;gap:10px;place-items:center}
+
+  .badge{display:inline-flex;align-items:center;gap:8px;background:#eef2ff;color:#1e3a8a;border:1px solid #c7d2fe;padding:6px 10px;border-radius:999px;font-weight:900;font-size:.8rem;margin:6px auto 2px}
+  .title{font-size:1.35rem;font-weight:900;text-align:center;margin:4px 0 2px}
+  .hint{color:#111827;text-align:center;margin:0 0 10px;font-size:1rem;font-weight:600}
+
+  .qcard{width:100%;max-width:var(--card-max);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;background:#fff;cursor:pointer;transition:transform .08s ease}
+  .qcard:hover{transform:translateY(-1px)}
+  .qimg{width:100%;height:clamp(var(--img-min),22vw,var(--img-max));object-fit:contain;background:#fff;padding:12px}
+  .qfoot{background:#0b1220;color:#f9fafb;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .qtitle{font-weight:900;font-size:.98rem}
+  .radio{width:18px;height:18px;border-radius:50%;border:2px solid #cbd5e1;background:#0b1220}
+
+  .pill{width:100%;max-width:var(--card-max);display:flex;align-items:center;gap:10px;border:2px solid #111827;border-radius:12px;padding:12px 14px;background:#fff;box-shadow:var(--shadow);cursor:pointer}
+  .pill:hover{transform:translateY(-1px)}
+  .dot{width:10px;height:10px;border-radius:50%;background:#111827}
+  .pill b{font-weight:900;font-size:1rem}
+
+  .ibox{width:100%;max-width:var(--card-max);display:grid;gap:8px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow);padding:14px}
+  .ibox label{font-weight:900}
+  .itxt{width:100%;border:2px solid #111827;border-radius:10px;padding:12px 12px;font-size:1rem}
+  .ibtn{justify-self:end;border:0;border-radius:10px;padding:10px 14px;background:#111827;color:#fff;font-weight:900;cursor:pointer}
+  .ibtn:disabled{opacity:.5;cursor:not-allowed}
+
+  .result{display:none;gap:10px}
+  .rez{border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;background:#fff}
+  .meter{height:12px;background:#f3f4f6;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .fill{height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);transition:width .4s ease}
+  .tag{display:inline-block;padding:5px 8px;border-radius:999px;font-weight:900;margin:6px 0 0;font-size:.85rem}
+  .low{background:#ecfdf5;color:#065f46}.mid{background:#fffbeb;color:#92400e}.high{background:#fef2f2;color:#991b1b}
+
+  .cta-box{margin-top:20px;text-align:center}
+  .cta-btn{display:inline-block;padding:12px 20px;background:var(--accent2);color:#fff;font-weight:900;font-size:1rem;border-radius:10px;text-decoration:none;animation:pulse 1.5s infinite;margin-top:12px}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,165,233,.7)}70%{box-shadow:0 0 0 15px rgba(14,165,233,0)}100%{box-shadow:0 0 0 0 rgba(14,165,233,0)}}
+  .bold-name{font-weight:900;color:#111827}
+  .small-note{color:var(--muted);margin-top:6px;font-size:.9rem}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:#111827;color:#fff;padding:8px 12px;border-radius:10px;display:none;box-shadow:var(--shadow);font-size:.92rem}
+  .toast.show{display:block}
+
+  /* ======= COLETA (número simulativo) ======= */
+  .collect{max-width:640px;margin:22px auto;padding:0 14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px}
+  .row{display:flex;gap:10px;align-items:center}
+  .inp{flex:1;padding:12px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:1rem;outline:none}
+  .inp:focus{border-color:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+  .btn{background:#111827;color:#fff;border:0;padding:12px 16px;border-radius:10px;font-weight:800;cursor:pointer}
+  .sub{color:#6b7280;margin-top:8px}
+
+  /* ======= PROCESSO ======= */
+  .process-wrap{max-width:760px;margin:22px auto;padding:0 14px}
+  .brand-box{background:var(--brand);color:#fff;border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px}
+  .brand-box img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+  .online{margin-left:auto;background:#16a34a;color:#fff;border-radius:999px;padding:6px 10px;font-weight:800;font-size:.9rem}
+  .divider{height:6px;border-radius:999px;background:#e5e7eb;margin:12px 0}
+  .panel{background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;color:#1e3a8a;padding:12px;font-weight:800}
+  .pbar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+  .pbar > i{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,#22c55e);width:0%}
+  .pill-ok{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;color:#065f46;padding:10px;font-weight:800;text-align:center}
+  .muted{color:#6b7280}
+
+  /* ======= SALES ======= */
+  .sales{max-width:820px;margin:22px auto;padding:0 14px}
+  .hero{background:var(--brand);border-radius:16px;padding:16px;color:#fff;display:flex;align-items:center;gap:12px}
+  .hero img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+  .hero .chip{margin-left:auto;background:#16a34a;color:#fff;border-radius:999px;padding:6px 10px;font-weight:800}
+  .alert{background:#fee2e2;color:#991b1b;border:1px solid #fecaca;padding:12px;border-radius:10px;font-weight:800;text-align:center}
+  .ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;padding:12px;border-radius:10px;font-weight:800;text-align:center}
+  .warn{background:#fffbeb;color:#92400e;border:1px solid #fde68a;padding:12px;border-radius:10px;font-weight:800;text-align:center}
+  .gallery{display:grid;gap:16px;margin:16px 0}
+  .gallery img{width:100%;border-radius:12px;border:1px solid #e5e7eb;object-fit:cover}
+  .censored{background:#ef4444;color:#fff;text-align:center;font-weight:900;border-radius:10px;padding:12px;margin:6px 0}
+  .cta{display:block;background:#16a34a;color:#fff;text-align:center;font-weight:900;padding:14px 18px;border-radius:12px;text-decoration:none}
+  .price{font-size:2rem;font-weight:900;color:#16a34a;margin:10px 0}
+  .strike{color:#9ca3af;text-decoration:line-through}
+  .seal{display:grid;place-items:center;margin:12px 0}
+  .ratings{background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:14px}
+  .rate-head{display:flex;align-items:center;gap:18px}
+  .stars{color:#f59e0b;font-size:1.1rem}
+  .op{border-top:1px solid #e5e7eb;margin-top:12px;padding-top:12px}
+  .op + .op{margin-top:10px}
+  .op small{color:#6b7280}
+
+  .page{display:none}
+  .page.active{display:block}
+
+  /* ========== RESPONSIVIDADE ========== */
+  /* Galeria: 1 coluna no mobile, 2 colunas em telas ≥640px */
+  .gallery{grid-template-columns:1fr;}
+  @media (min-width:640px){
+    .gallery{grid-template-columns:1fr 1fr;}
+  }
+
+  /* Ajustes para tablets */
+  @media (max-width:768px){
+    .title{font-size:1.25rem}
+    .hero img,.brand-box img{width:48px;height:48px}
+    .price{font-size:1.8rem}
+  }
+
+  /* Ajustes fortes para celulares */
+  @media (max-width:480px){
+    body{font-size:14px}
+    .wrap,.collect,.process-wrap,.sales{padding:0 12px}
+    .qimg{height:clamp(140px, 28vw, 200px)}
+    .row{flex-direction:column;align-items:stretch}
+    .btn{width:100%}
+    .inp{width:100%}
+    .ibtn{width:100%}
+    .hero,.brand-box{flex-direction:column;align-items:flex-start}
+    .hero .chip,.online{margin-left:0;margin-top:8px}
+    .title{font-size:1.15rem}
+    .hint{font-size:.95rem}
+    .price{font-size:1.6rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= QUIZ ================= -->
+<section id="page-quiz" class="page active">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">QZ</div>
+      <div class="progress"><div id="bar" class="bar"></div></div>
+    </div>
+
+    <div class="callout">✔ VOCÊ GANHOU 1 ACESSO GRÁTIS!</div>
+
+    <div id="stage" class="stage"></div>
+
+    <div id="result" class="result">
+      <div class="rez">
+        <h3>Seu panorama</h3>
+        <div id="rezTag" class="tag low">Baixo</div>
+        <div style="margin:6px 0 4px;color:#6b7280">Intensidade percebida dos sinais</div>
+        <div class="meter"><div id="fill" class="fill"></div></div>
+        <p id="rezText" style="margin:8px 0 0"></p>
+      </div>
+      <div class="rez cta-box">
+        <h3>Clone o Número do seu Parceiro:</h3>
+        <p class="small-note">O SpyPro permite que você monitore discretamente as atividades online de seu parceiro, garantindo total anonimato e segurança durante todo o processo.</p>
+        <a href="#" class="cta-btn" id="goSimu">👉 Clonar Número</a>
+      </div>
+    </div>
+  </div>
+  <div id="toast" class="toast">Preencha para continuar.</div>
+  <audio id="quizSound" src="quiz.mp3" preload="auto"></audio>
+</section>
+
+<!-- ============ COLETA DO NÚMERO (SIMULAÇÃO) ============ -->
+<section id="page-collect" class="page">
+  <div class="collect">
+    <div class="brand">
+      <div class="logo">SPY</div>
+    </div>
+    <div class="card">
+      <h2 style="margin:0 0 6px">Digite o número do celular que você deseja <u>espionar:</u></h2>
+      <p class="sub">Agora é o momento de descobrir toda verdade escondida.</p>
+      <div class="row" style="margin-top:10px">
+        <input id="simPhone" class="inp" type="tel" inputmode="numeric" placeholder="(11) 99999-9999" maxlength="16">
+        <button id="btnStartProcess" class="btn">Simular busca ▶</button>
+      </div>
+      <p id="simError" class="sub" style="color:#b91c1c;display:none;margin-top:8px">Informe um número válido (10 ou 11 dígitos).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================ PROCESSAMENTO ================ -->
+<section id="page-process" class="page">
+  <div class="process-wrap">
+    <div class="brand-box">
+      <img src="logo.png" alt="logo">
+      <strong>Spy Pro</strong>
+      <span class="online">• 26 online</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel">🔎 DESCOBRINDO CONVERSAS ARQUIVADAS</div>
+
+    <h3 style="margin:12px 0">Descobrindo a verdade: <span id="lblMasked">(XX) XXXXX-XXXX</span></h3>
+    <div class="muted" style="margin:-6px 0 8px">Descubra se está sendo traído(a)</div>
+
+    <div style="margin:8px 0">
+      <div style="display:flex;justify-content:space-between;font-weight:700">
+        <span>Preparando ambiente…</span><span id="pb1txt">0%</span>
+      </div>
+      <div class="pbar"><i id="pb1"></i></div>
+    </div>
+    <div style="margin:8px 0">
+      <div style="display:flex;justify-content:space-between;font-weight:700">
+        <span>Carregando imagens</span><span id="pb2txt">0%</span>
+      </div>
+      <div class="pbar"><i id="pb2"></i></div>
+    </div>
+
+    <div class="pill-ok" style="margin-top:12px">✅ Criando amostras e backups. Aguarde…</div>
+  </div>
+</section>
+
+<!-- ====================== SALES / DEMO PAGE ====================== -->
+<section id="page-sales" class="page">
+  <div class="sales">
+    <div class="hero">
+      <img src="logo.png" alt="logo">
+      <div>
+        <div style="font-weight:900;font-size:1.2rem">Spy Pro</div>
+        <div style="opacity:.85">Buscando Mensagens ocultas</div>
+      </div>
+      <span class="chip">• 27 online</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="alert">⚠ Atenção seu relacionamento está em perigo
+</b>.</div>
+    <div class="ok" style="margin-top:8px">✔ A VERDADE FOI DESCOBERTA!</div>
+    <div class="warn" style="margin-top:8px">⚠ FORAM ENCONTRADAS 11 MENSAGENS E 21 FOTOS COMPROMETEDORAS.
+OS DETALHES DESSES ARQUIVOS JÁ ESTÃO DISPONÍVEIS PARA VOCÊ.</div>
+
+    <h3 style="margin-top:16px">Informações avançadas:</h3>
+
+    <div class="gallery">
+      <div class="censored">CENSURADO  clique no botão para liberaração completa</div>
+      <!-- Adicione suas imagens reais na raiz: img1.jpg, img2.jpg, img3.jpg -->
+      <img src="img1.png" alt="mock 1">
+      <img src="img2.png" alt="mock 2">
+      <img src="img3.png" alt="mock 3">
+    </div>
+
+    <div style="text-align:center;margin:18px 0">
+      <div class="strike">Valor total: R$ 34,99</div>
+      <div class="price">R$ 12,90</div>
+      <a id="btnCheckout" href="https://pay.cakto.com.br/33ngxb2_588737" class="cta">PAGUE AGORA E DESCUBRA TODA A VERDADE</a>
+    </div>
+
+    <div class="seal">
+      <img src="selo.png" alt="selo de garantia" style="width:120px;height:auto">
+    </div>
+
+    <div class="gallery">
+      <div class="censored">Veja como o Spy Pro já ajudou outras pessoas:</div>
+      <!-- Adicione suas imagens reais na raiz: img1.jpg, img2.jpg, img3.jpg -->
+      <img src="depo.png" alt="mock 1">
+    </div>
+
+    
+<script>
+/* ================== CONFIG ================== */
+const TRACK_URL = "/track";
+const UPGRADE_URL = "https://pay.cakto.com.br/33ngxb2_588737";
+
+/* lead id persistente */
+const LEAD_ID = (() => {
+  try{
+    let id = localStorage.getItem("lead_id");
+    if (!id) { id = (crypto?.randomUUID?.() || Math.random().toString(36).slice(2)) + "-" + Date.now(); localStorage.setItem("lead_id", id); }
+    return id;
+  }catch(e){ return Math.random().toString(36).slice(2)+"-"+Date.now(); }
+})();
+
+let FINISHED = false;
+function sendBeaconJSON(url, data) {
+  try {
+    const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+    if (navigator.sendBeacon) return navigator.sendBeacon(url, blob);
+  } catch(e){}
+  fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) }).catch(()=>{});
+}
+function track(eventName, payload={}) {
+  const base = { lead_id: LEAD_ID, event: eventName, ts: new Date().toISOString(), href: location.href, ua: navigator.userAgent };
+  sendBeaconJSON(TRACK_URL, { ...base, ...payload });
+}
+
+/* ================== QUIZ ================== */
+let current = 0;
+let answers = {};
+let who = "parceiro(a)";
+let userName = "";
+let partnerName = "";
+
+const stage = document.getElementById('stage');
+const bar = document.getElementById('bar');
+const result = document.getElementById('result');
+const rezTag = document.getElementById('rezTag');
+const rezText = document.getElementById('rezText');
+const fill = document.getElementById('fill');
+const toast = document.getElementById('toast');
+const goSimuBtn = document.getElementById('goSimu');
+const quizSound = document.getElementById('quizSound');
+
+function playSound(){ try { if(quizSound){ quizSound.currentTime = 0; quizSound.play().catch(()=>{}); } } catch(e){} }
+function showToast(m){ toast.textContent=m; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1200); }
+
+/* perguntas */
+const QUESTIONS = [
+  { type:"who",
+    options:[
+      { id:"parceiro", img:"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2642.svg", label:"Quero avaliar sinais no meu parceiro (marido/namorado)" },
+      { id:"parceira", img:"https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2640.svg", label:"Quero avaliar sinais na minha parceira (esposa/namorada)" }
+    ]},
+  { type:"nameUser" },
+  { type:"namePartner" },
+  { title:"Ele(a) ainda divide a vida com você... ou só compartilha mentiras?", sub:"Celular sempre virado pra baixo, senha trocada sem dizer nada…", options:[{score:2,text:"🔒 Sim, está bem mais secreto(a)"},{score:1,text:"🤫 Um pouco mais reservado(a)"},{score:0,text:"📱 Não percebi nada disso"}]},
+  { title:"O roteiro da rotina mudou… e você nem foi avisado(a)?", sub:"Chegadas mais tarde, desculpas que não se sustentam…", options:[{score:2,text:"⏰ Sim, acontece direto"},{score:1,text:"📅 De vez em quando"},{score:0,text:"📍 Segue a mesma rotina de antes"}]},
+  { title:"O carinho virou um enigma: esfriou ou é só atuação?", sub:"Distante… depois afeto exagerado.", options:[{score:2,text:"🎭 Oscila bastante"},{score:1,text:"🧊 Um pouco diferente"},{score:0,text:"❤️ Nada fora do comum"}]},
+  { title:"Toda pergunta simples vira interrogatório?", sub:"Reação defensiva a perguntas banais.", options:[{score:2,text:"🛡️ Com frequência"},{score:1,text:"⚠️ Às vezes"},{score:0,text:"🙃 Quase nunca"}]},
+  { title:"As histórias não batem… ou batem de forma ensaiada?", sub:"Furos, horários que não fecham…", options:[{score:2,text:"📉 Sim, várias vezes"},{score:1,text:"🤔 Já notei algumas vezes"},{score:0,text:"✅ Não, sempre faz sentido"}]},
+  { title:"Novo perfume, nova roupa… novo(a) pra quem?", sub:"Mudanças no visual e saídas sozinho(a).", options:[{score:2,text:"💅 Mudou bastante"},{score:1,text:"👗 Um pouco"},{score:0,text:"🙈 Nada relevante"}]},
+  { title:"Privacidade… ou segredo mesmo?", sub:"Apps fechados, incômodo ao chegar perto.", options:[{score:2,text:"🚫 Sim, muito secreto(a)"},{score:1,text:"👀 Mais reservado(a)"},{score:0,text:"🧘 Apenas privacidade normal"}]},
+  { title:"Gente nova demais no pedaço?", sub:"Contatos que surgem do nada…", options:[{score:2,text:"👥 Sim, muito presentes"},{score:1,text:"👤 Alguns, às vezes"},{score:0,text:"🤷‍♂️ Nada fora do normal"}]},
+  { title:"Planos cancelados e desculpas prontas?", sub:"O que era prioridade virou incômodo.", options:[{score:2,text:"❌ Acontece direto"},{score:1,text:"🔄 Ocasionalmente"},{score:0,text:"📌 Quase nunca"}]}
+];
+function steps(){ return QUESTIONS.length; }
+
+function addTitles(t, s){
+  const b=document.createElement('div'); b.className="badge"; b.innerHTML="📋 <span>PERGUNTA</span>"; stage.appendChild(b);
+  if(t){ const el=document.createElement('div'); el.className="title"; el.textContent=t; stage.appendChild(el); }
+  if(s){ const hint=document.createElement('div'); hint.className="hint"; hint.textContent=s; stage.appendChild(hint); }
+}
+function addBadge(){}
+
+function renderNameBox({label,placeholder,onSubmit}){
+  const box=document.createElement('div');
+  box.className="ibox";
+  box.innerHTML=`<label>${label}</label>
+    <input id="itxt" class="itxt" type="text" placeholder="${placeholder}" />
+    <button id="ibtn" class="ibtn">Continuar ▶</button>`;
+  stage.appendChild(box);
+  const itxt=box.querySelector('#itxt'); const ibtn=box.querySelector('#ibtn');
+  function go(){
+    const val = itxt.value.trim();
+    onSubmit(val);
+    fetch("/track",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event:"lead_name",name:val,ts:Date.now()})});
+  }
+  ibtn.addEventListener('click', go);
+  itxt.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); go(); }});
+  setTimeout(()=>itxt.focus(),50);
+}
+
+function autoNext(){ setTimeout(()=>{ current<steps()-1 ? (current++,render()) : showResult(); }, 180); }
+
+function render(){
+  stage.innerHTML=""; result.style.display="none";
+  const q = QUESTIONS[current];
+  try{ track("quiz_step_view",{step_index:current,step_total:QUESTIONS.length,type:q.type||"question"});}catch(e){}
+  if(!q.type||q.type==="default"){ addBadge(); }
+
+  if(q.type==="who"){
+    addTitles("Selecione sobre quem você tem dúvidas:","Escolha uma opção abaixo");
+    q.options.forEach(o=>{
+      const card=document.createElement('div');
+      card.className="qcard"; card.tabIndex=0;
+      card.innerHTML=`<img class="qimg" src="${o.img}" alt="${o.label}" loading="lazy"/>
+        <div class="qfoot"><div><div class="qtitle">${o.label}</div></div><div class="radio"></div></div>`;
+      card.addEventListener('click',()=>{
+        playSound();
+        who = o.id==="parceira" ? "parceira":"parceiro";
+        answers[current]={score:0,choice:o.id};
+        try{ track("quiz_select_target",{choice:o.id}); }catch(e){}
+        autoNext();
+      });
+      stage.appendChild(card);
+    });
+  } else if(q.type==="nameUser"){
+    renderNameBox({
+      label:"Seu nome",
+      placeholder:"Digite seu nome",
+      onSubmit:(val)=>{
+        playSound();
+        userName = val.trim();
+        if(!userName){ showToast("Digite seu nome."); return; }
+        try{ track("quiz_name_user",{user_name:userName}); }catch(e){}
+        autoNext();
+      }
+    });
+  } else if(q.type==="namePartner"){
+    const label = who==="parceira" ? "Nome da parceira" : "Nome do parceiro";
+    renderNameBox({
+      label, placeholder:who==="parceira"?"Ex.: Ana":"Ex.: João",
+      onSubmit:(val)=>{
+        playSound();
+        partnerName = val.trim();
+        if(!partnerName){ showToast(`Digite o nome ${who==='parceira'?'da parceira':'do parceiro'}.`); return; }
+        try{ track("quiz_name_partner",{partner_name:partnerName,who}); }catch(e){}
+        autoNext();
+      }
+    });
+  } else {
+    addTitles(q.title,q.sub);
+    q.options.forEach(o=>{
+      const pill=document.createElement('div');
+      pill.className="pill"; pill.innerHTML=`<span class="dot"></span><b>${o.text}</b>`;
+      pill.addEventListener('click',()=>{
+        playSound();
+        answers[current]={score:o.score,choice:o.text};
+        try{ track("quiz_answer",{step_index:current,question:q.title||"",choice:o.text,score:o.score}); }catch(e){}
+        autoNext();
+      });
+      stage.appendChild(pill);
+    });
+  }
+  const pct = Math.round((current)/(steps()-1)*100);
+  bar.style.width = Math.max(4,pct)+"%";
+}
+
+function showResult(){
+  let sum=0,max=0;
+  QUESTIONS.forEach((q,i)=>{
+    if(q.type==="who"||q.type==="nameUser"||q.type==="namePartner") return;
+    max += Math.max(...q.options.map(o=>o.score||0));
+    sum += (answers[i]?.score||0);
+  });
+  const pct = Math.round((sum/max)*100);
+  let tag="Baixo", cls="low",
+    text=`<span class="bold-name">${userName||'Você'}</span>, os sinais percebidos com <span class="bold-name">${partnerName||('seu/sua '+who)}</span> estão baixos. Em vez de suposições, conversem e alinhem expectativas.`;
+  if(pct>=35&&pct<70){ tag="Moderado"; cls="mid"; text=`<span class="bold-name">${userName||'Você'}</span>, há alguns sinais a observar com <span class="bold-name">${partnerName||('seu/sua '+who)}</span>. Criem espaço para diálogo honesto e limites digitais.`; }
+  if(pct>=70){ tag="Alto"; cls="high"; text=`<span class="bold-name">${userName||'Você'}</span>, os sinais percebidos envolvendo <span class="bold-name">${partnerName||('seu/sua '+who)}</span> estão altos. Antes de decisões impulsivas, busque uma conversa estruturada e, se possível, apoio profissional.`; }
+
+  rezTag.className="tag "+cls; rezTag.textContent=tag; fill.style.width=pct+"%";
+  rezText.innerHTML=text;
+
+  stage.innerHTML=""; result.style.display="grid"; bar.style.width="100%";
+  try{ track("quiz_finish",{score_pct:pct,score_tag:tag,total_steps:QUESTIONS.length}); }catch(e){}
+  FINISHED = true;
+}
+
+document.addEventListener('DOMContentLoaded', render);
+
+/* ===== navegação ===== */
+function showPage(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+
+document.getElementById('goSimu').addEventListener('click',(e)=>{
+  e.preventDefault();
+  showPage('page-collect');        // vai para coleta do número
+  track('simu_collect_view',{});
+});
+
+/* ===== máscara/validação ===== */
+function onlyDigits(s){ return (s||'').replace(/\D/g,''); }
+function maskBr(v){
+  let d = onlyDigits(v).slice(0,11);
+  if(d.length<=2) return '('+d;
+  if(d.length<=6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+  if(d.length<=10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+  return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7,11)}`;
+}
+function maskForLabel(d){
+  d = onlyDigits(d);
+  if(d.length===11) return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7,11)}`;
+  if(d.length===10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6,10)}`;
+  return '(XX) XXXXX-XXXX';
+}
+
+const simPhone = document.getElementById('simPhone');
+const simError = document.getElementById('simError');
+simPhone.addEventListener('input', e=>{ e.target.value = maskBr(e.target.value); });
+
+document.getElementById('btnStartProcess').addEventListener('click', ()=>{
+  const raw = onlyDigits(simPhone.value);
+  if(raw.length<10 || raw.length>11){
+    simError.style.display='block';
+    return;
+  }
+  simError.style.display='none';
+  localStorage.setItem('sim_number', raw);
+  track('simu_collect_submit',{digits: raw.length});
+  // seta número na tela de processo
+  document.getElementById('lblMasked').textContent = maskForLabel(raw);
+  showPage('page-process');
+  startProcessBars();
+});
+
+/* ===== progresso/process ===== */
+let procTimer=null;
+function startProcessBars(){
+  const pb1=document.getElementById('pb1');
+  const pb2=document.getElementById('pb2');
+  const t1=document.getElementById('pb1txt');
+  const t2=document.getElementById('pb2txt');
+  let a=0,b=0;
+
+  // mostrar número salvo (se recarregar direto)
+  const saved = localStorage.getItem('sim_number');
+  if(saved){ document.getElementById('lblMasked').textContent = maskForLabel(saved); }
+
+  if(procTimer) clearInterval(procTimer);
+  procTimer = setInterval(()=>{
+    a = Math.min(100, a + Math.ceil(Math.random()*7));
+    b = Math.min(100, b + Math.ceil(Math.random()*5));
+    pb1.style.width = a+'%'; t1.textContent = a+'%';
+    pb2.style.width = b+'%'; t2.textContent = b+'%';
+    if(a>=100 && b>=100){
+      clearInterval(procTimer);
+      setTimeout(()=>{ showPage('page-sales'); track('simu_finished',{}); }, 800);
+    }
+  }, 260);
+}
+
+/* ===== checkout ===== */
+document.getElementById('btnCheckout').addEventListener('click',(e)=>{
+  e.preventDefault();
+  track('checkout_click',{});
+  if(UPGRADE_URL){ window.location.href = UPGRADE_URL; }
+});
+
+/* ===== unload tracking ===== */
+window.addEventListener("beforeunload", () => {
+  if (!FINISHED) track("quiz_abandon", { step_index: current, step_total: (typeof QUESTIONS!=="undefined"? QUESTIONS.length : null) });
+});
+</script>
+
+<script>
+/* ======== Keeper de Atribuição (SPA-safe) ======== */
+(function(){
+  // 1) Captura UTMs e SCK na entrada
+  function getParamsFromURL() {
+    const u = new URL(window.location.href);
+    const pick = (k) => u.searchParams.get(k);
+    const params = {};
+    // guarda UTMs comuns
+    ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","fbclid","gclid","msclkid"].forEach(k=>{
+      const v = pick(k); if (v) params[k]=v;
+    });
+    // tenta SCKs mais usados
+    const sck = pick("sck") || pick("xcod") || pick("click_id") || pick("sckid");
+    if (sck) params.__sck = sck;
+    return params;
+  }
+
+  function persistAttribution() {
+    try {
+      const p = getParamsFromURL();
+      // tenta reaproveitar o SCK que o UTMify pode já ter salvo
+      const utmifySck =
+        localStorage.getItem("utmify:sck") ||
+        localStorage.getItem("utmify_click_id") ||
+        localStorage.getItem("utmify:xcod") ||
+        localStorage.getItem("utmify_xcod");
+      if (!p.__sck && utmifySck) p.__sck = utmifySck;
+
+      // fallback: se ainda não tem, reaproveita o que já persistimos antes
+      const prev = JSON.parse(localStorage.getItem("aff.params") || "{}");
+      const final = Object.assign({}, prev, p);
+      localStorage.setItem("aff.params", JSON.stringify(final));
+      if (final.__sck) localStorage.setItem("aff.sck", final.__sck);
+    } catch(e) {}
+  }
+
+  function getSCK() {
+    try {
+      return (
+        // nosso stash
+        localStorage.getItem("aff.sck") ||
+        // UTMify (nomes comuns)
+        localStorage.getItem("utmify:sck") ||
+        localStorage.getItem("utmify_click_id") ||
+        localStorage.getItem("utmify:xcod") ||
+        localStorage.getItem("utmify_xcod")
+      );
+    } catch(e) { return null; }
+  }
+
+  function attachSckToUrl(href) {
+    try {
+      if (!href) return href;
+      const sck = getSCK();
+      if (!sck) return href;
+      const url = new URL(href, window.location.origin);
+      // só anexa se for sair pro checkout (Cakto) ou se o link já tiver domínio absoluto
+      const isExternal = /^https?:\/\//i.test(href);
+      // ajuste seu domínio de checkout aqui se mudar
+      const isCakto = url.hostname.includes("cakto.com.br");
+      if (!isExternal && !isCakto) return href; // evita poluir links internos
+
+      if (!url.searchParams.has("sck")) {
+        url.searchParams.set("sck", sck);
+      }
+      // também preserva utms úteis, se ainda não estiverem
+      const stash = JSON.parse(localStorage.getItem("aff.params") || "{}");
+      ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"].forEach(k=>{
+        if (stash[k] && !url.searchParams.has(k)) url.searchParams.set(k, stash[k]);
+      });
+      return url.toString();
+    } catch(e) { return href; }
+  }
+
+  // 2) Gruda no botão de checkout sempre que a página de vendas aparecer
+  function patchCheckoutButton() {
+    try {
+      var btn = document.getElementById("btnCheckout");
+      if (!btn) return;
+      btn.href = attachSckToUrl(btn.href);
+    } catch(e) {}
+  }
+
+  // 3) Garante no clique (última linha de defesa)
+  function guardOnClick() {
+    try {
+      var btn = document.getElementById("btnCheckout");
+      if (!btn || btn.__guarded) return;
+      btn.__guarded = true;
+      btn.addEventListener("click", function(ev){
+        try {
+          // reanexa antes de sair
+          btn.href = attachSckToUrl(btn.href);
+        } catch(e) {}
+      }, true);
+    } catch(e) {}
+  }
+
+  // 4) Observa mutações (se seu código trocar o href dinamicamente)
+  function observeMutations() {
+    try {
+      var btn = document.getElementById("btnCheckout");
+      if (!btn) return;
+      var mo = new MutationObserver(function(muts){
+        for (const m of muts) {
+          if (m.type === "attributes" && m.attributeName === "href") {
+            btn.href = attachSckToUrl(btn.getAttribute("href"));
+          }
+        }
+      });
+      mo.observe(btn, { attributes: true, attributeFilter: ["href"] });
+    } catch(e) {}
+  }
+
+  // 5) Integra com seu SPA: intercepta showPage para regrudar no momento certo
+  const _showPage = window.showPage;
+  window.showPage = function(id){
+    try {
+      _showPage.call(this, id);
+      if (id === "page-sales") {
+        // quando a tela de vendas fica ativa, garantimos o sck
+        patchCheckoutButton();
+        guardOnClick();
+      }
+    } catch(e) {
+      // fallback caso algo quebre
+      _showPage(id);
+    }
+  };
+
+  // 6) Boot inicial
+  document.addEventListener("DOMContentLoaded", function(){
+    persistAttribution();
+    // se a página já carregar direto na sales (teste), garante também
+    patchCheckoutButton();
+    guardOnClick();
+    observeMutations();
+  });
+})();
+</script>
+
+    
+</body>
+</html>
