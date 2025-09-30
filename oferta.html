@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oferta Especial - Spy Pro</title>
+  <link rel="icon" type="image/png" href="https://i.ibb.co/xqC3B0gD/logo.png" />
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #f5f5f5;
+      --text: #111;
+      --muted: #555;
+      --red: #e31616;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      text-align: center;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .accent {
+      color: var(--red);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .price {
+      margin: 20px auto;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+    }
+
+    .price span {
+      font-size: 1.3rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .countdown {
+      font-size: 1.3rem;
+      color: var(--red);
+      font-weight: 700;
+      margin: 12px 0;
+    }
+
+    .cta-box {
+      background: var(--panel);
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 18px 32px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      background: linear-gradient(180deg, #ff1a1a, #800000);
+      border: 1px solid rgba(255, 0, 0, .7);
+      color: #fff;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(255, 0, 0, .6);
+      animation: pulse 2s infinite;
+    }
+
+    .cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 0, 0, .9);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 12px rgba(255, 0, 0, .6)
+      }
+
+      50% {
+        box-shadow: 0 0 26px rgba(255, 0, 0, 1)
+      }
+
+      100% {
+        box-shadow: 0 0 12px rgba(255, 0, 0, .6)
+      }
+    }
+
+    .garantia {
+      margin-top: 16px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    .garantia strong {
+      color: var(--text);
+    }
+
+    .selo-garantia {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--red);
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 700;
+      background: var(--bg);
+      box-shadow: 0 0 18px rgba(227, 22, 22, .3);
+      margin-top: 14px;
+      flex-direction: column;
+    }
+
+    .selo-garantia svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--red);
+      margin-bottom: 4px;
+    }
+
+    .logo {
+      max-width: 160px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <img class="logo" src="https://i.ibb.co/xqC3B0gD/logo.png" alt="Logo Controle Absoluto">
+
+    <h1>🚨 Não feche essa página ainda!<br>
+      Essa é sua <span class="accent">chance de ouro</span> de garantir o Spy-Pro pelo menor preço da história.</h1>
+
+    <div class="cta-box">
+      <h2>🔥 Oferta Exclusiva</h2>
+      <div class="price">
+        <span>De R$ 98,90</span>
+        R$ 12,90
+      </div>
+      <div id="countdown" class="countdown">Oferta expira em: 04:00</div>
+      <a href="https://seguro.nostalgiavelha.online/r/PB60BF84EC" target="_blank" class="cta">🔥 Comprar Agora</a>
+      <div class="garantia">✅ Garantia incondicional de <strong>7 dias</strong>. Se não gostar, seu dinheiro volta.</div>
+      <div class="selo-garantia">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 17a2 2 0 0 0 2-2v-2a2 2 0 0 0-4 0v2a2 2 0 0 0 2 2zm6-6h-1V9a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-3 0H9V9a3 3 0 0 1 6 0v2z" />
+        </svg>
+        Garantia<br>7 Dias
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Contador regressivo de 4 minutos
+    let time = 4 * 60;
+    const countdownEl = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      let minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      countdownEl.innerHTML = `Oferta expira em: ${minutes}:${seconds}`;
+      time--;
+
+      if (time < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "Oferta encerrada!";
+      }
+    }, 1000);
+  </script>
+
+</body>
+
+</html>
